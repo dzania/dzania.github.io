@@ -1,5 +1,5 @@
 # Site settings
-title: Dzania   # site title
+title: Dzania personal website    # site title
 description: >- # site description
   Too busy to add description rn. Ryan Gosling enjoyer(He's literally me)
 lang: en-US # default lang
@@ -10,7 +10,6 @@ mode: dark # default theme "dark" | "light"
 
 # Profile settings
 author:
-  name:  dzania # author name
   username: dzania # general username
   github: dzania # github username
   email: akantorczyk@gmail.com # email adress
