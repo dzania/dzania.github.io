@@ -8,8 +8,8 @@ mode: dark # default theme "dark" | "light"
 
 # Profile settings
 author:
-  name:  dzania # author name
-  username: Dzania # general username
+  name:  Dzania # author name
+  username: dzania # general username
   github: dzania # github username
   email: akantorczyk@gmail.com # email adress
   avatar:  /assets/img/avatar.jpeg
