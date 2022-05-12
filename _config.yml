@@ -12,9 +12,8 @@ author:
   username: dzania # general username
   github: dzania # github username
   email: akantorczyk@gmail.com # email adress
-  avatar:  /assets/img/119-1193544_10468668-wojak-in-hoodie.png
-
-# URL settings
+  avatar:  /assets/img/avatar.jpeg
+  # URL settings
 url: "https://dzania.github.io/" #
 baseurl:
 permalink: /:title/
