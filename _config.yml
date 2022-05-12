@@ -9,10 +9,11 @@ mode: dark # default theme "dark" | "light"
 # Profile settings
 author:
   name:  dzania # author name
-  username: dzania # general username
+  username: Dzania # general username
   github: dzania # github username
   email: akantorczyk@gmail.com # email adress
   avatar:  /assets/img/avatar.jpeg
+  bio: Bad coder and even worse writer :P
   # URL settings
 url: "https://dzania.github.io/" #
 baseurl:
