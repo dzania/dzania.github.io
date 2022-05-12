@@ -1,10 +1,9 @@
 # Site settings
-title: Dzania personal website #  site title
+title: Boring life #  site title
 description: >- # site description
   TODO
 lang: en-US # default lang
 timezone: Europe/Berlin # set your timezone
-repo: https://github.com/piharpi/jekyll-klise # site repo [optional]
 mode: dark # default theme "dark" | "light"
 
 # Profile settings
