@@ -13,3 +13,11 @@
 - title: github
   url: https://github.com/dzania
   external: true
+
+- title: movies
+  url: /movies/
+  external: false
+
+- title: books  
+  url: /books/
+  external: false
