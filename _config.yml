@@ -11,12 +11,12 @@ author:
   name:  Dzania # author name
   username: dzania # general username
   github: dzania # github username
-  email: akantorczyk@gmail.com # email adress
+  email: artur.kantorczyl@gmail.com # email adress
   avatar:  /assets/img/avatar.jpeg
   bio: Bad coder and even worse writer hope I'll post something one day for now it's empty
   # URL settings
 url: "https://dzania.github.io/" #
-baseurl:
+baseurl: https://dzania.github.io/
 permalink: /:title/
 google_analytics: # leave it blank if not wish
 fb_appid:
@@ -52,7 +52,7 @@ jekyll_compose:
     description:
 
 # Homepage limit posts
-number_of_posts: 5
+number_of_posts: 6
 
 # Build settings
 # theme: klise
