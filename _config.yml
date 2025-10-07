@@ -4,7 +4,7 @@ description: >- # site description
   TODO
 lang: en-US # default lang
 timezone: Europe/Berlin # set your timezone
-mode: dark # default theme "dark" | "light"
+mode: light # default theme "dark" | "light"
 
 # Profile settings
 author:
