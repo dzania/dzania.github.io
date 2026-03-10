@@ -11,9 +11,9 @@ author:
   name:  Dzania # author name
   username: dzania # general username
   github: dzania # github username
-  email: artur.kantorczyl@gmail.com # email adress
+  email: artur.kantorczyk@gmail.com # email adress
   avatar:  /assets/img/avatar.jpeg
-  bio: Bad coder and even worse writer hope I'll post something one day for now it's empty
+  bio: Bad coder and even worse writer. I'll post something one day for now it's empty
   # URL settings
 url: "https://dzania.github.io/" #
 baseurl: https://dzania.github.io/
