@@ -2,11 +2,14 @@
 title: About
 permalink: /about/
 layout: page
-excerpt: Noob coder
+excerpt: Personal notes and contact.
 comments: false
 ---
 
-Don't know why I made this site I hope I'll post something one day
+This is my small corner for notes, links, and work-in-progress thoughts. I mostly use it to keep
+useful things easy to find and public enough to share.
+
+I am interested in systems programming, databases and skateboarding.
 
 
 **Contact**

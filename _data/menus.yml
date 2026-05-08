@@ -10,10 +10,6 @@
   url: /about/
   external: false 
 
-- title: resources
-  url: /resources/
-  external: false 
-
 - title: github
   url: https://github.com/dzania
   external: true

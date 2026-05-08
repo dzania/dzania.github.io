@@ -1,7 +1,7 @@
 # Site settings
 title: Dzania #  site title
 description: >- # site description
-  TODO
+  Notes, resources, and projects from Dzania.
 lang: en-US # default lang
 timezone: Europe/Berlin # set your timezone
 mode: light # default theme "dark" | "light"
@@ -13,10 +13,10 @@ author:
   github: dzania # github username
   email: artur.kantorczyk@gmail.com # email adress
   avatar:  /assets/img/avatar.jpeg
-  bio: Bad coder and even worse writer. I'll post something one day for now it's empty
+  bio: Notes about code, systems, books, and useful links I want to keep close.
   # URL settings
-url: "https://dzania.github.io/" #
-baseurl: https://dzania.github.io/
+url: "https://dzania.github.io" #
+baseurl: ""
 permalink: /:title/
 google_analytics: # leave it blank if not wish
 fb_appid:
