@@ -64,6 +64,19 @@
     float: right;
   }
 
+  .site-title {
+    color: $black;
+    float: left;
+    font-weight: $bold-weight;
+    line-height: $base-line-height + 0.4;
+    margin-left: 24px;
+    text-decoration: none;
+
+    &:hover {
+      color: $text-link-blue;
+    }
+  }
+
   .menu-trigger {
     display: none;
   }
@@ -118,6 +131,15 @@
     a#mode {
       left: 10px;
       top: 12px;
+    }
+
+    .site-title {
+      float: none;
+      left: 50%;
+      line-height: 50px;
+      margin-left: 0;
+      position: absolute;
+      transform: translateX(-50%);
     }
 
     .menu-icon {

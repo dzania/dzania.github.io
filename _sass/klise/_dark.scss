@@ -136,6 +136,15 @@ body[data-theme="dark"] {
       .menu-link {
         color: $dark-white;
       }
+
+      .site-title {
+        color: $dark-white;
+
+        &:hover {
+          color: $dark-text-link-blue;
+        }
+      }
+
       @include media-query($on-mobile) {
         background-color: $dark-black;
         border-color: $dark-light;
