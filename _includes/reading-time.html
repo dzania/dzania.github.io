@@ -1,0 +1,6 @@
+{% assign words_count = include.content | strip_html | number_of_words %}
+{% assign reading_time = words_count | plus: 179 | divided_by: 180 %}
+{% if reading_time < 1 %}
+  {% assign reading_time = 1 %}
+{% endif %}
+<span class="reading-time">{{ reading_time }} min read</span>

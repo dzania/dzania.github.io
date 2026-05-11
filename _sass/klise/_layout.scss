@@ -256,15 +256,26 @@
     border-top: 1px solid $light;
   }
 
-  .post-item-date {
-    min-width: 96px;
-    color: $black;
-    font-weight: 700;
+  .post-item-meta {
+    min-width: 128px;
     padding-right: 10px;
+    line-height: 1.35;
+  }
+
+  .post-item-date {
+    color: $black;
+    display: block;
+    font-weight: 700;
 
     @include media-query($on-mobile) {
       font-size: 16px;
     }
+  }
+
+  .reading-time {
+    color: $gray;
+    display: block;
+    font-size: $small-font-size;
   }
 
   .post-item-title {
