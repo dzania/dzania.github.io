@@ -1,4 +1,5 @@
 <footer class="footer">
+  <a class="footer_item" href="/feed.xml">rss</a>
   <small class="footer_copyright">
     <!-- Klisé Theme: https://github.com/piharpi/jekyll-klise -->
     <a
@@ -23,12 +24,5 @@
   </script>
 {%- endif -%}
 {%- if page.url == '/archive/' -%}
-  <script src="/assets/js/search.min.js"></script>
-  <script>
-    var sjs = SimpleJekyllSearch({
-      searchInput: document.getElementById('search-input'),
-      resultsContainer: document.getElementById('search-results'),
-      json: '/assets/search.json',
-    });
-  </script>
+  <script src="/assets/js/archive-filter.js" defer="defer"></script>
 {%- endif -%}

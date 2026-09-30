@@ -1,0 +1,265 @@
+<figure class="cs" id="cs-root">
+<style>
+  .cs {
+    --cs-fg: #0d122b;
+    --cs-muted: #6b7886;
+    --cs-line: #d2c7c7;
+    --cs-box: #ffffff;
+    --cs-a: #003fff;
+    --cs-w: #6b7886;
+    --cs-b: #e8345a;
+    --cs-on: #ffffff;
+    margin: 2rem auto;
+    max-width: 640px;
+  }
+  body[data-theme="dark"] .cs {
+    --cs-fg: #eaeaea;
+    --cs-muted: #767f87;
+    --cs-line: #4a4d56;
+    --cs-box: #1b1d25;
+    --cs-a: #6f8cff;
+    --cs-w: #a3abb4;
+    --cs-b: #ff5277;
+    --cs-on: #131418;
+  }
+  .cs-svg { display: block; width: 100%; height: auto; cursor: pointer; font-family: inherit; }
+  .cs-frame { fill: var(--cs-box); stroke: var(--cs-line); stroke-width: 1.5; }
+  .cs-caption { fill: var(--cs-muted); font-size: 11px; letter-spacing: 0.08em; }
+  .cs-small { fill: var(--cs-muted); font-size: 11px; }
+  .cs-reg-label { fill: var(--cs-fg); font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+  .cs-regs rect { fill: var(--cs-line); stroke: var(--cs-line); fill-opacity: 0.18; stroke-width: 1.5; transition: fill 0.35s, stroke 0.35s; }
+  .cs-own-a rect { fill: var(--cs-a); stroke: var(--cs-a); }
+  .cs-own-w rect { fill: var(--cs-w); stroke: var(--cs-w); }
+  .cs-own-b rect { fill: var(--cs-b); stroke: var(--cs-b); }
+  .cs-stack .cs-card { fill: var(--cs-box); stroke: var(--cs-line); stroke-width: 1.5; transition: stroke 0.35s; }
+  .cs-stack.cs-own-a .cs-card { stroke: var(--cs-a); stroke-width: 2; }
+  .cs-stack.cs-own-w .cs-card { stroke: var(--cs-w); stroke-width: 2; }
+  .cs-stack.cs-own-b .cs-card { stroke: var(--cs-b); stroke-width: 2; }
+  .cs-stack line { stroke: var(--cs-line); stroke-width: 1.5; }
+  .cs-sp { transition: opacity 0.35s; }
+  .cs-sp rect { fill: var(--cs-fg); }
+  .cs-own-a .cs-sp rect { fill: var(--cs-a); }
+  .cs-own-w .cs-sp rect { fill: var(--cs-w); }
+  .cs-own-b .cs-sp rect { fill: var(--cs-b); }
+  .cs-sp text { fill: var(--cs-on); font-size: 11px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+  .cs-own-none .cs-sp { opacity: 0; }
+  .cs-arrow { opacity: 0; transition: opacity 0.25s; }
+  .cs-arrow path { fill: none; stroke: var(--c); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 1 1; stroke-dashoffset: 1; transition: stroke-dashoffset 0.5s ease-out; }
+  .cs-arrow text { fill: var(--c); font-size: 12px; font-weight: 700; }
+  .cs-arrow.is-on { opacity: 1; }
+  .cs-arrow.is-on path { stroke-dashoffset: 0; }
+  .cs-queue { fill: var(--cs-muted); font-size: 11px; transition: fill 0.35s; }
+  .cs-queue.is-on { fill: var(--cs-fg); font-weight: 700; }
+  .cs-panel { margin-top: 0.75rem; min-height: 5.5em; font-style: normal; text-align: left; }
+  .cs-panel * { font-style: normal; }
+  .cs-text { margin: 0 0 0.35rem; }
+  .cs-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+  .cs-controls button {
+    font: inherit;
+    color: var(--cs-fg);
+    background: transparent;
+    border: 1px solid var(--cs-line);
+    border-radius: 6px;
+    padding: 0.15rem 0.75rem;
+    cursor: pointer;
+  }
+  .cs-controls button:hover, .cs-controls button:focus-visible { border-color: var(--cs-a); }
+  .cs-count { color: var(--cs-muted); font-size: 0.875em; margin-left: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    .cs *, .cs *::before { transition: none !important; }
+  }
+</style>
+<svg class="cs-svg" viewBox="0 0 640 296" role="img" aria-label="Diagram of a context switch from task A to the worker to task B. Use the buttons below to step through it.">
+  <defs>
+    <marker id="cs-arrowhead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="context-stroke" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <rect class="cs-frame" x="130" y="16" width="380" height="64" rx="12"/>
+  <text class="cs-caption" x="146" y="34">CPU</text>
+  <g class="cs-regs cs-own-a" data-part="cpu">
+    <rect x="146" y="42" width="40" height="24" rx="6"/>
+    <rect x="192" y="42" width="110" height="24" rx="6"/>
+    <rect x="308" y="42" width="56" height="24" rx="6"/>
+    <rect x="370" y="42" width="56" height="24" rx="6"/>
+    <rect x="432" y="42" width="62" height="24" rx="6"/>
+  </g>
+  <text class="cs-reg-label" x="166" y="54">sp</text>
+  <text class="cs-reg-label" x="247" y="54">x19–x28</text>
+  <text class="cs-reg-label" x="336" y="54">x29 fp</text>
+  <text class="cs-reg-label" x="398" y="54">x30 lr</text>
+  <text class="cs-reg-label" x="463" y="54">d8–d15</text>
+  <g class="cs-arrow" data-arrow="store-a" style="--c: var(--cs-a)">
+    <path pathLength="1" marker-end="url(#cs-arrowhead)" d="M190 82 C190 118 95 112 95 142"/>
+    <text x="128" y="106" text-anchor="end">store</text>
+  </g>
+  <g class="cs-arrow" data-arrow="load-w" style="--c: var(--cs-w)">
+    <path pathLength="1" marker-end="url(#cs-arrowhead)" d="M320 142 L320 84"/>
+    <text x="328" y="118">load</text>
+  </g>
+  <g class="cs-arrow" data-arrow="store-w" style="--c: var(--cs-w)">
+    <path pathLength="1" marker-end="url(#cs-arrowhead)" d="M320 82 L320 142"/>
+    <text x="328" y="118">store</text>
+  </g>
+  <g class="cs-arrow" data-arrow="load-b" style="--c: var(--cs-b)">
+    <path pathLength="1" marker-end="url(#cs-arrowhead)" d="M545 142 C545 112 450 118 450 84"/>
+    <text x="512" y="106">load</text>
+  </g>
+  <text class="cs-caption" x="20" y="136">TASK A</text>
+  <rect class="cs-frame" x="20" y="146" width="180" height="64" rx="10"/>
+  <text class="cs-small" x="32" y="164">context</text>
+  <g class="cs-regs cs-own-none" data-part="ctx-a">
+    <rect x="32" y="174" width="16" height="18" rx="4"/>
+    <rect x="53" y="174" width="46" height="18" rx="4"/>
+    <rect x="104" y="174" width="22" height="18" rx="4"/>
+    <rect x="131" y="174" width="22" height="18" rx="4"/>
+    <rect x="158" y="174" width="30" height="18" rx="4"/>
+  </g>
+  <g class="cs-stack cs-own-a" data-stack="a">
+    <rect class="cs-card" x="20" y="222" width="180" height="64" rx="10"/>
+    <text class="cs-small" x="32" y="240">stack</text>
+    <line x1="32" y1="254" x2="150" y2="254"/>
+    <line x1="32" y1="266" x2="150" y2="266"/>
+    <line x1="32" y1="278" x2="150" y2="278"/>
+    <g class="cs-sp"><rect x="154" y="230" width="34" height="18" rx="9"/><text x="171" y="239">sp</text></g>
+  </g>
+  <text class="cs-caption" x="230" y="136">WORKER</text>
+  <text class="cs-queue" x="410" y="136" text-anchor="end">queue: B C</text>
+  <rect class="cs-frame" x="230" y="146" width="180" height="64" rx="10"/>
+  <text class="cs-small" x="242" y="164">context</text>
+  <g class="cs-regs cs-own-w" data-part="ctx-w">
+    <rect x="242" y="174" width="16" height="18" rx="4"/>
+    <rect x="263" y="174" width="46" height="18" rx="4"/>
+    <rect x="314" y="174" width="22" height="18" rx="4"/>
+    <rect x="341" y="174" width="22" height="18" rx="4"/>
+    <rect x="368" y="174" width="30" height="18" rx="4"/>
+  </g>
+  <g class="cs-stack cs-own-none" data-stack="w">
+    <rect class="cs-card" x="230" y="222" width="180" height="64" rx="10"/>
+    <text class="cs-small" x="242" y="240">stack</text>
+    <line x1="242" y1="254" x2="360" y2="254"/>
+    <line x1="242" y1="266" x2="360" y2="266"/>
+    <line x1="242" y1="278" x2="360" y2="278"/>
+    <g class="cs-sp"><rect x="364" y="230" width="34" height="18" rx="9"/><text x="381" y="239">sp</text></g>
+  </g>
+  <text class="cs-caption" x="440" y="136">TASK B</text>
+  <rect class="cs-frame" x="440" y="146" width="180" height="64" rx="10"/>
+  <text class="cs-small" x="452" y="164">context</text>
+  <g class="cs-regs cs-own-b" data-part="ctx-b">
+    <rect x="452" y="174" width="16" height="18" rx="4"/>
+    <rect x="473" y="174" width="46" height="18" rx="4"/>
+    <rect x="524" y="174" width="22" height="18" rx="4"/>
+    <rect x="551" y="174" width="22" height="18" rx="4"/>
+    <rect x="578" y="174" width="30" height="18" rx="4"/>
+  </g>
+  <g class="cs-stack cs-own-none" data-stack="b">
+    <rect class="cs-card" x="440" y="222" width="180" height="64" rx="10"/>
+    <text class="cs-small" x="452" y="240">stack</text>
+    <line x1="452" y1="254" x2="570" y2="254"/>
+    <line x1="452" y1="266" x2="570" y2="266"/>
+    <line x1="452" y1="278" x2="570" y2="278"/>
+    <g class="cs-sp"><rect x="574" y="230" width="34" height="18" rx="9"/><text x="591" y="239">sp</text></g>
+  </g>
+</svg>
+<figcaption class="cs-panel">
+  <p class="cs-text" aria-live="polite">Task A is running on its own stack.</p>
+  <code class="cs-code">// task A: doing work</code>
+  <div class="cs-controls">
+    <button type="button" data-cs="prev" aria-label="Previous step">←</button>
+    <button type="button" data-cs="play" aria-pressed="false">Play</button>
+    <button type="button" data-cs="next" aria-label="Next step">→</button>
+    <span class="cs-count">1 / 7</span>
+  </div>
+</figcaption>
+<script>
+(function () {
+  var root = document.getElementById("cs-root");
+  if (!root) return;
+  var steps = [
+    { cpu: "a", ctxA: "none", ctxW: "w", ctxB: "b", stack: "a", arrow: "", queue: "queue: B C", queueOn: false,
+      text: "Task A is running on its own stack.",
+      code: "// task A: doing work" },
+    { cpu: "a", ctxA: "a", ctxW: "w", ctxB: "b", stack: "a", arrow: "store-a", queue: "queue: B C", queueOn: false,
+      text: "A calls yield_now(). swap_context stores the CPU registers into A’s context.",
+      code: "swap_context(&mut a.context, &worker.context)" },
+    { cpu: "w", ctxA: "a", ctxW: "w", ctxB: "b", stack: "w", arrow: "load-w", queue: "queue: B C", queueOn: false,
+      text: "Then it loads the worker’s context. sp now points at the worker’s stack, and lr back into dispatch.",
+      code: "swap_context(&mut a.context, &worker.context)" },
+    { cpu: "w", ctxA: "a", ctxW: "none", ctxB: "b", stack: "w", arrow: "", queue: "queue: C A", queueOn: true,
+      text: "The scheduler puts A at the back of the queue and takes B from the front.",
+      code: "local_queue.push(a); let b = find_task();" },
+    { cpu: "w", ctxA: "a", ctxW: "w", ctxB: "b", stack: "w", arrow: "store-w", queue: "queue: C A", queueOn: false,
+      text: "dispatch switches to B. First it stores the scheduler’s registers into the worker’s context.",
+      code: "swap_context(&mut worker.context, &b.context)" },
+    { cpu: "b", ctxA: "a", ctxW: "w", ctxB: "b", stack: "b", arrow: "load-b", queue: "queue: C A", queueOn: false,
+      text: "Then it loads B’s context. sp now points at B’s stack.",
+      code: "swap_context(&mut worker.context, &b.context)" },
+    { cpu: "b", ctxA: "a", ctxW: "w", ctxB: "none", stack: "b", arrow: "", queue: "queue: C A", queueOn: false,
+      text: "Task B is running. From B’s point of view, its own yield_now() just returned.",
+      code: "// task B: back from yield_now()" }
+  ];
+  var index = 0;
+  var timer = null;
+  var svg = root.querySelector(".cs-svg");
+  var text = root.querySelector(".cs-text");
+  var code = root.querySelector(".cs-code");
+  var count = root.querySelector(".cs-count");
+  var queue = root.querySelector(".cs-queue");
+  var play = root.querySelector('[data-cs="play"]');
+
+  function setOwner(el, owner) {
+    el.classList.remove("cs-own-a", "cs-own-w", "cs-own-b", "cs-own-none");
+    el.classList.add("cs-own-" + owner);
+  }
+
+  function render() {
+    var step = steps[index];
+    setOwner(root.querySelector('[data-part="cpu"]'), step.cpu);
+    setOwner(root.querySelector('[data-part="ctx-a"]'), step.ctxA);
+    setOwner(root.querySelector('[data-part="ctx-w"]'), step.ctxW);
+    setOwner(root.querySelector('[data-part="ctx-b"]'), step.ctxB);
+    ["a", "w", "b"].forEach(function (key) {
+      setOwner(root.querySelector('[data-stack="' + key + '"]'), step.stack === key ? key : "none");
+    });
+    root.querySelectorAll("[data-arrow]").forEach(function (el) {
+      el.classList.toggle("is-on", el.getAttribute("data-arrow") === step.arrow);
+    });
+    queue.textContent = step.queue;
+    queue.classList.toggle("is-on", step.queueOn);
+    text.textContent = step.text;
+    code.textContent = step.code;
+    count.textContent = (index + 1) + " / " + steps.length;
+  }
+
+  function go(next) {
+    index = (next + steps.length) % steps.length;
+    render();
+  }
+
+  function stop() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+    play.textContent = "Play";
+    play.setAttribute("aria-pressed", "false");
+  }
+
+  root.querySelector('[data-cs="prev"]').addEventListener("click", function () { stop(); go(index - 1); });
+  root.querySelector('[data-cs="next"]').addEventListener("click", function () { stop(); go(index + 1); });
+  svg.addEventListener("click", function () { stop(); go(index + 1); });
+  play.addEventListener("click", function () {
+    if (timer) {
+      stop();
+      return;
+    }
+    play.textContent = "Pause";
+    play.setAttribute("aria-pressed", "true");
+    go(index + 1);
+    timer = setInterval(function () { go(index + 1); }, 2600);
+  });
+
+  render();
+})();
+</script>
+</figure>

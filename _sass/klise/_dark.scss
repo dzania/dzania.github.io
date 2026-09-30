@@ -57,7 +57,137 @@ body[data-theme="dark"] {
   code {
     &.highlighter-rouge {
       background-color: $dark-light;
+      border-color: $dark-smoke;
     }
+  }
+
+  pre.highlight,
+  pre {
+    background-color: #1a1b21;
+    border-color: rgba(128,128,128,0.1);
+  }
+
+  .highlight,
+  .highlight .w {
+    color: #fbf1c7;
+  }
+
+  .highlight .err {
+    color: #fb4934;
+  }
+
+  .highlight .c,
+  .highlight .cd,
+  .highlight .cm,
+  .highlight .c1,
+  .highlight .cs {
+    color: #928374;
+  }
+
+  .highlight .cp {
+    color: #8ec07c;
+  }
+
+  .highlight .nt {
+    color: #fb4934;
+  }
+
+  .highlight .o,
+  .highlight .ow {
+    color: #fbf1c7;
+  }
+
+  .highlight .p,
+  .highlight .pi {
+    color: #fbf1c7;
+  }
+
+  .highlight .gi {
+    color: #b8bb26;
+    background-color: #282828;
+  }
+
+  .highlight .gd {
+    color: #fb4934;
+    background-color: #282828;
+  }
+
+  .highlight .gh {
+    color: #b8bb26;
+  }
+
+  .highlight .k,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kv {
+    color: #fb4934;
+  }
+
+  .highlight .kc {
+    color: #d3869b;
+  }
+
+  .highlight .kt {
+    color: #fabd2f;
+  }
+
+  .highlight .kd {
+    color: #fe8019;
+  }
+
+  .highlight .s,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .sd,
+  .highlight .s2,
+  .highlight .sh,
+  .highlight .sx,
+  .highlight .s1 {
+    color: #b8bb26;
+  }
+
+  .highlight .si {
+    color: #b8bb26;
+  }
+
+  .highlight .sr {
+    color: #b8bb26;
+  }
+
+  .highlight .se {
+    color: #fe8019;
+  }
+
+  .highlight .nn {
+    color: #8ec07c;
+  }
+
+  .highlight .nc {
+    color: #8ec07c;
+  }
+
+  .highlight .no {
+    color: #d3869b;
+  }
+
+  .highlight .na {
+    color: #b8bb26;
+  }
+
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .il,
+  .highlight .mo,
+  .highlight .mb,
+  .highlight .mx {
+    color: #d3869b;
+  }
+
+  .highlight .ss {
+    color: #83a598;
   }
 
   // kbd tag
@@ -271,5 +401,38 @@ body[data-theme="dark"] {
         color: rgba(128,128,128,0.8);
       }
     }
+  }
+
+  .archive-filter legend {
+    color: $dark-white;
+  }
+
+  .tag-filter {
+    border-color: $dark-light;
+    color: $dark-text-base-color;
+
+    span {
+      color: $dark-gray;
+    }
+
+    &:hover {
+      border-color: $dark-smoke;
+      color: $dark-white;
+    }
+
+    &:focus-visible {
+      outline-color: $dark-text-link-blue;
+    }
+
+    &.is-active {
+      background: $dark-white;
+      border-color: $dark-white;
+      color: $dark-black;
+    }
+  }
+
+  .archive-filter-status,
+  .archive-filter-empty {
+    color: $dark-gray;
   }
 }

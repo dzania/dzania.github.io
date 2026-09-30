@@ -392,7 +392,7 @@
 
 .search-article {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 24px;
 
   label[for="search-input"] {
     position: relative;
@@ -425,15 +425,96 @@
   }
 }
 
-#search-results {
-  text-align: center;
-  li {
-    text-align: left;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.archive-filter {
+  border: 0;
+  margin: 0 0 8px;
+  padding: 0;
+
+  legend {
+    color: $black;
+    font-size: $small-font-size;
+    font-weight: $bold-weight;
+    margin-bottom: 8px;
   }
+}
+
+.archive-filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-filter {
+  appearance: none;
+  background: transparent;
+  border: 1px solid $light;
+  border-radius: 999px;
+  color: $text-base-color;
+  cursor: pointer;
+  font: inherit;
+  font-size: $small-font-size;
+  padding: 5px 10px;
+
+  span {
+    color: $gray;
+    font-size: $small-font-size - 1;
+    margin-left: 3px;
+  }
+
+  &:hover {
+    border-color: $smoke;
+    color: $black;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $text-link-blue;
+    outline-offset: 2px;
+  }
+
+  &.is-active {
+    background: $black;
+    border-color: $black;
+    color: $white;
+
+    span {
+      color: inherit;
+      opacity: 0.75;
+    }
+  }
+}
+
+.archive-filter-status {
+  color: $gray;
+  font-size: $small-font-size;
+  margin: 10px 0 28px;
+}
+
+.archive-filter-empty {
+  color: $gray;
+  margin-top: $spacing-full;
+}
+
+.post-item[hidden],
+.archive-year[hidden],
+.archive-filter-empty[hidden] {
+  display: none;
 }
 
 .archive-tags {
   height: auto;
+
   .tag-item {
     padding: 1px 3px;
     border-radius: 2px;
