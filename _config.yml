@@ -13,7 +13,7 @@ author:
   github: dzania # github username
   email: artur.kantorczyk@gmail.com # email adress
   avatar:  /assets/img/avatar.jpeg
-  bio: Notes about code, systems, books, and useful links I want to keep close.
+  bio: Random thoughts
   # URL settings
 url: "https://dzania.github.io" #
 baseurl: ""

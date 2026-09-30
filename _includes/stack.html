@@ -1,0 +1,200 @@
+<figure class="st" id="st-root">
+<style>
+  .st {
+    --st-fg: #0d122b;
+    --st-muted: #6b7886;
+    --st-line: #d2c7c7;
+    --st-box: #ffffff;
+    --st-accent: #003fff;
+    --st-crash: #e8345a;
+    margin: 2rem auto;
+    max-width: 640px;
+  }
+  body[data-theme="dark"] .st {
+    --st-fg: #eaeaea;
+    --st-muted: #767f87;
+    --st-line: #4a4d56;
+    --st-box: #1b1d25;
+    --st-accent: #6f8cff;
+    --st-crash: #ff5277;
+  }
+  .st-svg { display: block; width: 100%; height: auto; cursor: pointer; font-family: inherit; }
+  .st-hatch-line { stroke: var(--st-line); stroke-width: 2; }
+  .st-page-bg { fill: url(#st-hatch); stroke: var(--st-line); stroke-width: 1.5; }
+  .st-page-rw { fill: var(--st-box); stroke: var(--st-line); stroke-width: 1.5; opacity: 0; transition: opacity 0.4s; }
+  .st.is-rw .st-page-rw { opacity: 1; }
+  .st-guard { fill: transparent; stroke: var(--st-line); stroke-width: 1.5; transition: fill 0.35s, stroke 0.35s; }
+  .st.is-crash .st-guard { fill: var(--st-crash); fill-opacity: 0.15; stroke: var(--st-crash); stroke-width: 2; }
+  .st-divider { stroke: var(--st-line); stroke-width: 1; stroke-dasharray: 4 4; }
+  .st-caption { fill: var(--st-muted); font-size: 11px; letter-spacing: 0.08em; }
+  .st-small { fill: var(--st-muted); font-size: 11px; }
+  .st-label { fill: var(--st-fg); font-size: 13px; font-weight: 700; }
+  .st-bracket { fill: none; stroke: var(--st-muted); stroke-width: 1.5; }
+  .st-axis { fill: none; stroke: var(--st-muted); stroke-width: 1.5; }
+  .st-frame { opacity: 0; transform: translateY(-8px); transition: opacity 0.3s, transform 0.3s; }
+  .st-frame.is-on { opacity: 1; transform: none; }
+  .st-frame rect { fill: var(--st-accent); fill-opacity: 0.16; stroke: var(--st-accent); stroke-width: 1.5; }
+  .st-frame text { fill: var(--st-fg); font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+  .st-frame.is-crash rect { fill: var(--st-crash); stroke: var(--st-crash); }
+  .st-sp { opacity: 0; transition: opacity 0.3s, transform 0.4s ease-out; }
+  .st-sp.is-on { opacity: 1; }
+  .st-sp path { fill: none; stroke: var(--st-accent); stroke-width: 2.5; stroke-linecap: round; }
+  .st-sp text { fill: var(--st-accent); font-size: 13px; font-weight: 700; text-anchor: end; dominant-baseline: central; }
+  .st-sigbus { fill: var(--st-crash); font-size: 13px; font-weight: 700; text-anchor: middle; opacity: 0; transition: opacity 0.35s; }
+  .st.is-crash .st-sigbus { opacity: 1; }
+  .st-panel { margin-top: 0.75rem; min-height: 5.5em; font-style: normal; text-align: left; }
+  .st-panel * { font-style: normal; }
+  .st-text { margin: 0 0 0.35rem; }
+  .st-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+  .st-controls button {
+    font: inherit;
+    color: var(--st-fg);
+    background: transparent;
+    border: 1px solid var(--st-line);
+    border-radius: 6px;
+    padding: 0.15rem 0.75rem;
+    cursor: pointer;
+  }
+  .st-controls button:hover, .st-controls button:focus-visible { border-color: var(--st-accent); }
+  .st-count { color: var(--st-muted); font-size: 0.875em; margin-left: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    .st * { transition: none !important; }
+  }
+</style>
+<svg class="st-svg" viewBox="0 0 640 290" role="img" aria-label="Memory layout of a task's stack: 32 KiB of read-write stack above a 16 KiB guard page. Use the buttons below to step through it.">
+  <defs>
+    <pattern id="st-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line class="st-hatch-line" x1="0" y1="0" x2="0" y2="8"/>
+    </pattern>
+    <marker id="st-arrowhead" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="context-stroke" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text class="st-caption" x="24" y="36">HIGH ADDRESSES</text>
+  <path class="st-axis" d="M60 52 L60 246" marker-end="url(#st-arrowhead)"/>
+  <text class="st-small" x="70" y="150">grows down</text>
+  <text class="st-caption" x="24" y="272">LOW ADDRESSES</text>
+
+  <rect class="st-page-bg" x="200" y="30" width="200" height="160"/>
+  <rect class="st-page-rw" x="200" y="30" width="200" height="160"/>
+  <line class="st-divider" x1="200" y1="110" x2="400" y2="110"/>
+  <rect class="st-page-bg" x="200" y="190" width="200" height="80"/>
+  <rect class="st-guard" x="200" y="190" width="200" height="80"/>
+
+  <g class="st-frame" data-frame="0"><rect x="206" y="34" width="188" height="22" rx="5"/><text x="300" y="45">task closure</text></g>
+  <g class="st-frame" data-frame="1"><rect x="206" y="60" width="188" height="22" rx="5"/><text x="300" y="71">work()</text></g>
+  <g class="st-frame" data-frame="2"><rect x="206" y="86" width="188" height="22" rx="5"/><text x="300" y="97">parse()</text></g>
+  <g class="st-frame" data-frame="3"><rect x="206" y="112" width="188" height="22" rx="5"/><text x="300" y="123">recurse()</text></g>
+  <g class="st-frame" data-frame="4"><rect x="206" y="138" width="188" height="22" rx="5"/><text x="300" y="149">recurse()</text></g>
+  <g class="st-frame" data-frame="5"><rect x="206" y="164" width="188" height="22" rx="5"/><text x="300" y="175">recurse()</text></g>
+  <g class="st-frame is-crash" data-frame="6"><rect x="206" y="192" width="188" height="22" rx="5"/><text x="300" y="203">recurse()</text></g>
+  <text class="st-sigbus" x="300" y="248">SIGBUS</text>
+
+  <g class="st-sp" style="transform: translate(0px, 30px)">
+    <path d="M140 0 L194 0" marker-end="url(#st-arrowhead)"/>
+    <text x="132" y="0">sp</text>
+  </g>
+
+  <path class="st-bracket" d="M412 32 H420 V188 H412"/>
+  <text class="st-label" x="432" y="104">stack</text>
+  <text class="st-small st-stack-access" x="432" y="122">32 KiB, no access yet</text>
+  <path class="st-bracket" d="M412 192 H420 V268 H412"/>
+  <text class="st-label" x="432" y="226">guard page</text>
+  <text class="st-small" x="432" y="244">16 KiB, no access</text>
+</svg>
+<figcaption class="st-panel">
+  <p class="st-text" aria-live="polite">mmap reserves 48 KiB of address space. Every page starts as PROT_NONE: no reads, no writes.</p>
+  <code class="st-code">mmap(null, 48 KiB, PROT_NONE, MAP_PRIVATE | MAP_ANON, -1, 0)</code>
+  <div class="st-controls">
+    <button type="button" data-st="prev" aria-label="Previous step">←</button>
+    <button type="button" data-st="play" aria-pressed="false">Play</button>
+    <button type="button" data-st="next" aria-label="Next step">→</button>
+    <span class="st-count">1 / 6</span>
+  </div>
+</figcaption>
+<script>
+(function () {
+  var root = document.getElementById("st-root");
+  if (!root) return;
+  var steps = [
+    { rw: false, frames: 0, sp: null, crash: false,
+      text: "mmap reserves 48 KiB of address space. Every page starts as PROT_NONE: no reads, no writes.",
+      code: "mmap(null, 48 KiB, PROT_NONE, MAP_PRIVATE | MAP_ANON, -1, 0)" },
+    { rw: true, frames: 0, sp: null, crash: false,
+      text: "mprotect opens the top 32 KiB for reading and writing. The bottom page stays PROT_NONE: that’s the guard page. (My first version forgot this call, so every task crashed on its first write.)",
+      code: "mprotect(bottom, 32 KiB, PROT_READ | PROT_WRITE)" },
+    { rw: true, frames: 0, sp: 30, crash: false,
+      text: "A new task starts with sp at the top. On ARM64 the stack grows down, toward lower addresses.",
+      code: "context.sp = stack.aligned_top()" },
+    { rw: true, frames: 3, sp: 108, crash: false,
+      text: "Every call pushes a frame with its locals and return address, and sp moves down.",
+      code: "// the closure calls work(), which calls parse()" },
+    { rw: true, frames: 6, sp: 186, crash: false,
+      text: "Deep recursion keeps pushing. 32 KiB fills up fast, and this is the last frame that fits.",
+      code: "fn recurse(n: u64) -> u64 { recurse(n + 1) + 1 }" },
+    { rw: true, frames: 7, sp: 214, crash: true,
+      text: "The next frame lands in the guard page. The CPU faults and the process dies with SIGBUS, instead of silently overwriting other memory.",
+      code: "// exit code 138: killed by SIGBUS" }
+  ];
+  var index = 0;
+  var timer = null;
+  var svg = root.querySelector(".st-svg");
+  var text = root.querySelector(".st-text");
+  var code = root.querySelector(".st-code");
+  var count = root.querySelector(".st-count");
+  var sp = root.querySelector(".st-sp");
+  var access = root.querySelector(".st-stack-access");
+  var frames = root.querySelectorAll("[data-frame]");
+  var play = root.querySelector('[data-st="play"]');
+
+  function render() {
+    var step = steps[index];
+    root.classList.toggle("is-rw", step.rw);
+    root.classList.toggle("is-crash", step.crash);
+    access.textContent = step.rw ? "32 KiB, read/write" : "32 KiB, no access yet";
+    frames.forEach(function (el) {
+      var n = Number(el.getAttribute("data-frame"));
+      el.classList.toggle("is-on", step.frames > n);
+    });
+    sp.classList.toggle("is-on", step.sp !== null);
+    if (step.sp !== null) {
+      sp.style.transform = "translate(0px, " + step.sp + "px)";
+    }
+    text.textContent = step.text;
+    code.textContent = step.code;
+    count.textContent = (index + 1) + " / " + steps.length;
+  }
+
+  function go(next) {
+    index = (next + steps.length) % steps.length;
+    render();
+  }
+
+  function stop() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+    play.textContent = "Play";
+    play.setAttribute("aria-pressed", "false");
+  }
+
+  root.querySelector('[data-st="prev"]').addEventListener("click", function () { stop(); go(index - 1); });
+  root.querySelector('[data-st="next"]').addEventListener("click", function () { stop(); go(index + 1); });
+  svg.addEventListener("click", function () { stop(); go(index + 1); });
+  play.addEventListener("click", function () {
+    if (timer) {
+      stop();
+      return;
+    }
+    play.textContent = "Pause";
+    play.setAttribute("aria-pressed", "true");
+    go(index + 1);
+    timer = setInterval(function () { go(index + 1); }, 2000);
+  });
+
+  render();
+})();
+</script>
+</figure>

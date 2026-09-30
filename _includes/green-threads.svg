@@ -1,0 +1,153 @@
+<svg class="gt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" role="img" aria-labelledby="gt-title gt-desc">
+  <title id="gt-title">Green threads scheduled on OS threads</title>
+  <desc id="gt-desc">Two OS threads, each with a queue of four green threads. Each OS thread runs the task at the front of its queue. When that task yields, it goes to the back of the same queue and the next task starts.</desc>
+  <defs>
+    <marker id="gt-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <style>
+    .gt {
+      --gt-fg: #0d122b;
+      --gt-muted: #6b7886;
+      --gt-line: #d2c7c7;
+      --gt-box: #ffffff;
+      --gt-track: #ececec;
+      --gt-accent: #003fff;
+      --gt-on-accent: #ffffff;
+      display: block;
+      width: 100%;
+      max-width: 640px;
+      height: auto;
+      margin: 2rem auto;
+      font-family: inherit;
+    }
+    body[data-theme="dark"] .gt {
+      --gt-fg: #eaeaea;
+      --gt-muted: #767f87;
+      --gt-line: #4a4d56;
+      --gt-box: #1b1d25;
+      --gt-track: #4a4d56;
+      --gt-accent: #ff5277;
+      --gt-on-accent: #131418;
+    }
+
+    .gt-caption { fill: var(--gt-muted); font-size: 11px; letter-spacing: 0.08em; }
+    .gt-yield { fill: var(--gt-muted); font-size: 12px; text-anchor: middle; }
+    .gt-tray { fill: none; stroke: var(--gt-line); stroke-width: 1.5; stroke-dasharray: 4 4; }
+    .gt-route { fill: none; stroke: var(--gt-line); stroke-width: 1.5; stroke-dasharray: 3 5; }
+    .gt-next { fill: none; stroke: var(--gt-muted); stroke-width: 1.6; }
+    .gt-worker { fill: var(--gt-box); stroke: var(--gt-line); stroke-width: 1.5; }
+    .gt-worker-label { fill: var(--gt-fg); font-size: 14px; font-weight: 700; }
+    .gt-track { fill: var(--gt-track); }
+    .gt-bar {
+      fill: var(--gt-accent);
+      transform-box: fill-box;
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      animation: gt-run 1s linear infinite;
+    }
+
+    .gt-task { animation: gt-move 4s linear infinite; }
+    .gt-dot {
+      fill: var(--gt-box);
+      stroke: var(--gt-line);
+      stroke-width: 1.5;
+      animation: gt-dot 4s linear infinite;
+    }
+    .gt-label {
+      fill: var(--gt-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-anchor: middle;
+      dominant-baseline: central;
+      animation: gt-label 4s linear infinite;
+    }
+
+    /* One 4s cycle = four 1s slices. Each slice: run for 0.7s, then rotate the queue. */
+    @keyframes gt-move {
+      0%, 17.5% { transform: translate(350px, 0); }
+      19.375% { transform: translate(303.75px, -29.8px); }
+      21.25% { transform: translate(220px, -39.75px); }
+      23.125% { transform: translate(136.25px, -29.8px); }
+      25% { transform: translate(90px, 0); }
+      42.5% { transform: translate(90px, 0); animation-timing-function: ease-in-out; }
+      50% { transform: translate(160px, 0); }
+      67.5% { transform: translate(160px, 0); animation-timing-function: ease-in-out; }
+      75% { transform: translate(230px, 0); }
+      92.5% { transform: translate(230px, 0); animation-timing-function: ease-in-out; }
+      100% { transform: translate(350px, 0); }
+    }
+    @keyframes gt-dot {
+      0%, 17.5% { fill: var(--gt-accent); stroke: var(--gt-accent); }
+      21.25%, 92.5% { fill: var(--gt-box); stroke: var(--gt-line); }
+      100% { fill: var(--gt-accent); stroke: var(--gt-accent); }
+    }
+    @keyframes gt-label {
+      0%, 17.5% { fill: var(--gt-on-accent); }
+      21.25%, 92.5% { fill: var(--gt-muted); }
+      100% { fill: var(--gt-on-accent); }
+    }
+    @keyframes gt-run {
+      0% { transform: scaleX(0); opacity: 1; }
+      70% { transform: scaleX(1); opacity: 1; }
+      100% { transform: scaleX(1); opacity: 0; }
+    }
+
+    .gt .q0 { animation-delay: 0s; }
+    .gt .q1 { animation-delay: -3s; }
+    .gt .q2 { animation-delay: -2s; }
+    .gt .q3 { animation-delay: -1s; }
+    .gt .r0 { animation-delay: -0.5s; }
+    .gt .r1 { animation-delay: -3.5s; }
+    .gt .r2 { animation-delay: -2.5s; }
+    .gt .r3 { animation-delay: -1.5s; }
+
+    /* Reduced motion: tasks jump between slots instead of travelling. */
+    @keyframes gt-jump {
+      0%, 24.9% { transform: translate(350px, 0); }
+      25%, 49.9% { transform: translate(90px, 0); }
+      50%, 74.9% { transform: translate(160px, 0); }
+      75%, 99.9% { transform: translate(230px, 0); }
+      100% { transform: translate(350px, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gt-task { animation-name: gt-jump; }
+      .gt-bar { animation: none; display: none; }
+    }
+  </style>
+
+  <g transform="translate(0 72)">
+    <path class="gt-route" d="M350 -18 C 334 -58, 106 -58, 90 -18" marker-end="url(#gt-arrow)"/>
+    <text class="gt-yield" x="220" y="-56">yield()</text>
+    <rect class="gt-tray" x="62" y="-24" width="196" height="48" rx="24"/>
+    <text class="gt-caption" x="70" y="42">QUEUE</text>
+    <path class="gt-next" d="M270 0 H 296" marker-end="url(#gt-arrow)"/>
+    <rect class="gt-worker" x="310" y="-30" width="290" height="60" rx="12"/>
+    <text class="gt-worker-label" x="390" y="-3">OS thread 1</text>
+    <rect class="gt-track" x="390" y="10" width="180" height="4" rx="2"/>
+    <rect class="gt-bar q0" x="390" y="10" width="180" height="4" rx="2"/>
+
+    <g class="gt-task q0" transform="translate(350 0)"><circle class="gt-dot q0" r="14"/><text class="gt-label q0">T1</text></g>
+    <g class="gt-task q1" transform="translate(230 0)"><circle class="gt-dot q1" r="14"/><text class="gt-label q1">T2</text></g>
+    <g class="gt-task q2" transform="translate(160 0)"><circle class="gt-dot q2" r="14"/><text class="gt-label q2">T3</text></g>
+    <g class="gt-task q3" transform="translate(90 0)"><circle class="gt-dot q3" r="14"/><text class="gt-label q3">T4</text></g>
+  </g>
+
+  <g transform="translate(0 192)">
+    <path class="gt-route" d="M350 -18 C 334 -58, 106 -58, 90 -18" marker-end="url(#gt-arrow)"/>
+    <text class="gt-yield" x="220" y="-56">yield()</text>
+    <rect class="gt-tray" x="62" y="-24" width="196" height="48" rx="24"/>
+    <text class="gt-caption" x="70" y="42">QUEUE</text>
+    <path class="gt-next" d="M270 0 H 296" marker-end="url(#gt-arrow)"/>
+    <rect class="gt-worker" x="310" y="-30" width="290" height="60" rx="12"/>
+    <text class="gt-worker-label" x="390" y="-3">OS thread 2</text>
+    <rect class="gt-track" x="390" y="10" width="180" height="4" rx="2"/>
+    <rect class="gt-bar r0" x="390" y="10" width="180" height="4" rx="2"/>
+
+    <g class="gt-task r0" transform="translate(350 0)"><circle class="gt-dot r0" r="14"/><text class="gt-label r0">T5</text></g>
+    <g class="gt-task r1" transform="translate(230 0)"><circle class="gt-dot r1" r="14"/><text class="gt-label r1">T6</text></g>
+    <g class="gt-task r2" transform="translate(160 0)"><circle class="gt-dot r2" r="14"/><text class="gt-label r2">T7</text></g>
+    <g class="gt-task r3" transform="translate(90 0)"><circle class="gt-dot r3" r="14"/><text class="gt-label r3">T8</text></g>
+  </g>
+</svg>

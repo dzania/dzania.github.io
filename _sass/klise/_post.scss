@@ -259,3 +259,23 @@
 .post-updated-at {
   font-family: $mono-family;
 }
+
+// Callout notes. In Markdown: a `> ...` blockquote followed by `{: .note}`.
+blockquote.note {
+  color: $text-base-color;
+  font-style: normal;
+  text-align: left;
+  opacity: 1;
+  border: 0;
+  border-left: 3px solid $text-link-blue;
+  border-radius: 0 6px 6px 0;
+  background-color: rgba($text-link-blue, 0.05);
+  padding: $spacing-half;
+  margin: 1.5rem 0;
+}
+
+body[data-theme="dark"] blockquote.note {
+  color: $dark-text-base-color;
+  border-left-color: $dark-text-link-blue;
+  background-color: rgba($dark-text-link-blue, 0.08);
+}

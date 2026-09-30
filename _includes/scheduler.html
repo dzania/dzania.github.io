@@ -1,0 +1,207 @@
+<figure class="sq" id="sq-root">
+<style>
+  .sq {
+    --sq-fg: #0d122b;
+    --sq-muted: #6b7886;
+    --sq-line: #d2c7c7;
+    --sq-box: #ffffff;
+    --sq-accent: #003fff;
+    --sq-on-accent: #ffffff;
+    margin: 2rem auto;
+    max-width: 640px;
+  }
+  body[data-theme="dark"] .sq {
+    --sq-fg: #eaeaea;
+    --sq-muted: #767f87;
+    --sq-line: #4a4d56;
+    --sq-box: #1b1d25;
+    --sq-accent: #ff5277;
+    --sq-on-accent: #131418;
+  }
+  .sq-svg { display: block; width: 100%; height: auto; cursor: pointer; font-family: inherit; }
+  .sq-caption { fill: var(--sq-muted); font-size: 11px; letter-spacing: 0.08em; }
+  .sq-code { fill: var(--sq-fg); font-size: 13px; font-weight: 700; text-anchor: end; dominant-baseline: central; }
+  .sq-tray { fill: none; stroke: var(--sq-line); stroke-width: 1.5; stroke-dasharray: 4 4; }
+  .sq-route { fill: none; stroke: var(--sq-line); stroke-width: 1.5; stroke-dasharray: 3 5; }
+  .sq-arrow { fill: none; stroke: var(--sq-muted); stroke-width: 1.6; }
+  .sq-worker { fill: var(--sq-box); stroke: var(--sq-line); stroke-width: 1.5; }
+  .sq-worker-label { fill: var(--sq-fg); font-size: 14px; font-weight: 700; }
+  .sq-worker-sub { fill: var(--sq-muted); font-size: 11px; }
+  .sq-task circle { fill: var(--sq-box); stroke: var(--sq-line); stroke-width: 1.5; transition: fill 0.35s, stroke 0.35s; }
+  .sq-task text { fill: var(--sq-muted); font-size: 11px; font-weight: 700; text-anchor: middle; dominant-baseline: central; transition: fill 0.35s; }
+  .sq-task.is-running circle { fill: var(--sq-accent); stroke: var(--sq-accent); }
+  .sq-task.is-running text { fill: var(--sq-on-accent); }
+  .sq-task.is-new circle { stroke: var(--sq-accent); stroke-width: 2; stroke-dasharray: 3 3; }
+  .sq-task.is-new text { fill: var(--sq-accent); }
+  .sq-task { transition: opacity 0.35s; }
+  .sq-panel { margin-top: 0.75rem; min-height: 4.5em; font-style: normal; text-align: left; }
+  .sq-panel * { font-style: normal; }
+  .sq-text { margin: 0; }
+  .sq-controls { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; }
+  .sq-controls button {
+    font: inherit;
+    color: var(--sq-fg);
+    background: transparent;
+    border: 1px solid var(--sq-line);
+    border-radius: 6px;
+    padding: 0.15rem 0.75rem;
+    cursor: pointer;
+  }
+  .sq-controls button:hover, .sq-controls button:focus-visible { border-color: var(--sq-accent); }
+  .sq-count { color: var(--sq-muted); font-size: 0.875em; margin-left: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    .sq * { transition: none !important; }
+  }
+</style>
+<svg class="sq-svg" viewBox="0 0 640 320" role="img" aria-label="Two workers, each with a local queue, and a global queue that new tasks go to. Use the buttons below to step through it.">
+  <defs>
+    <marker id="sq-arrowhead" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M1 1 L8 5 L1 9" fill="none" stroke="context-stroke" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+
+  <text class="sq-code" x="228" y="55">spawn()</text>
+  <path class="sq-arrow" d="M236 55 H 262" marker-end="url(#sq-arrowhead)"/>
+  <rect class="sq-tray" x="272" y="31" width="96" height="48" rx="24"/>
+  <text class="sq-caption" x="272" y="22">GLOBAL QUEUE</text>
+  <path class="sq-route" d="M370 55 C 470 55, 470 100, 470 132" marker-end="url(#sq-arrowhead)"/>
+  <path class="sq-route" d="M370 55 C 628 55, 628 190, 604 256" marker-end="url(#sq-arrowhead)"/>
+
+  <g transform="translate(0 165)">
+    <path class="sq-route" d="M380 -18 C 360 -62, 90 -62, 70 -18" marker-end="url(#sq-arrowhead)"/>
+    <rect class="sq-tray" x="40" y="-24" width="260" height="48" rx="24"/>
+    <text class="sq-caption" x="48" y="42">LOCAL QUEUE</text>
+    <path class="sq-arrow" d="M306 0 H 330" marker-end="url(#sq-arrowhead)"/>
+    <rect class="sq-worker" x="340" y="-30" width="260" height="60" rx="12"/>
+    <text class="sq-worker-label" x="414" y="-4">worker 1</text>
+    <text class="sq-worker-sub" x="414" y="14">OS thread 1</text>
+  </g>
+
+  <g transform="translate(0 275)">
+    <path class="sq-route" d="M380 -18 C 360 -62, 90 -62, 70 -18" marker-end="url(#sq-arrowhead)"/>
+    <rect class="sq-tray" x="40" y="-24" width="260" height="48" rx="24"/>
+    <text class="sq-caption" x="48" y="42">LOCAL QUEUE</text>
+    <path class="sq-arrow" d="M306 0 H 330" marker-end="url(#sq-arrowhead)"/>
+    <rect class="sq-worker" x="340" y="-30" width="260" height="60" rx="12"/>
+    <text class="sq-worker-label" x="414" y="-4">worker 2</text>
+    <text class="sq-worker-sub" x="414" y="14">OS thread 2</text>
+  </g>
+
+  <g class="sq-task is-running" data-task="T1" style="transform: translate(380px, 165px)"><circle r="14"/><text>T1</text></g>
+  <g class="sq-task" data-task="T2" style="transform: translate(250px, 165px)"><circle r="14"/><text>T2</text></g>
+  <g class="sq-task" data-task="T3" style="transform: translate(190px, 165px)"><circle r="14"/><text>T3</text></g>
+  <g class="sq-task is-running" data-task="T4" style="transform: translate(380px, 275px)"><circle r="14"/><text>T4</text></g>
+  <g class="sq-task" data-task="T5" style="transform: translate(250px, 275px)"><circle r="14"/><text>T5</text></g>
+  <g class="sq-task" data-task="T6" style="transform: translate(190px, 275px)"><circle r="14"/><text>T6</text></g>
+  <g class="sq-task" data-task="T7" style="transform: translate(200px, 55px); opacity: 0"><circle r="14"/><text>T7</text></g>
+</svg>
+<figcaption class="sq-panel">
+  <p class="sq-text" aria-live="polite">Each worker runs one task at a time and keeps a local queue of tasks that are waiting their turn.</p>
+  <div class="sq-controls">
+    <button type="button" data-sq="prev" aria-label="Previous step">←</button>
+    <button type="button" data-sq="play" aria-pressed="false">Play</button>
+    <button type="button" data-sq="next" aria-label="Next step">→</button>
+    <span class="sq-count">1 / 7</span>
+  </div>
+</figcaption>
+<script>
+(function () {
+  var root = document.getElementById("sq-root");
+  if (!root) return;
+  var ROW1 = 165;
+  var ROW2 = 275;
+  var RUN = 380;
+  var GLOBAL = [320, 55];
+  var OFFSCREEN = [200, 55];
+  var steps = [
+    { text: "Each worker runs one task at a time and keeps a local queue of tasks that are waiting their turn.",
+      pos: { T1: [RUN, ROW1], T2: [250, ROW1], T3: [190, ROW1], T4: [RUN, ROW2], T5: [250, ROW2], T6: [190, ROW2], T7: OFFSCREEN } },
+    { text: "spawn() puts a new task, T7, on the global queue. Any worker can take it from there.",
+      pos: { T1: [RUN, ROW1], T2: [250, ROW1], T3: [190, ROW1], T4: [RUN, ROW2], T5: [250, ROW2], T6: [190, ROW2], T7: GLOBAL } },
+    { text: "T4 yields, so worker 2 puts it at the back of its own local queue.",
+      pos: { T1: [RUN, ROW1], T2: [250, ROW1], T3: [190, ROW1], T4: [130, ROW2], T5: [250, ROW2], T6: [190, ROW2], T7: GLOBAL } },
+    { text: "This time worker 2 takes its next task from the global queue. Workers alternate between the two queues, so neither one can starve the other.",
+      pos: { T1: [RUN, ROW1], T2: [250, ROW1], T3: [190, ROW1], T4: [130, ROW2], T5: [250, ROW2], T6: [190, ROW2], T7: [RUN, ROW2] } },
+    { text: "T7 yields. It has started running now, so it goes to worker 2’s local queue, not back to the global one.",
+      pos: { T1: [RUN, ROW1], T2: [250, ROW1], T3: [190, ROW1], T4: [130, ROW2], T5: [250, ROW2], T6: [190, ROW2], T7: [70, ROW2] } },
+    { text: "Worker 2 moves on to the task at the front of its local queue.",
+      pos: { T1: [RUN, ROW1], T2: [250, ROW1], T3: [190, ROW1], T4: [190, ROW2], T5: [RUN, ROW2], T6: [250, ROW2], T7: [130, ROW2] } },
+    { text: "Meanwhile worker 1 keeps cycling through its own tasks. It never runs T4 to T7: once a task has started, it stays on the worker that started it.",
+      pos: { T1: [190, ROW1], T2: [RUN, ROW1], T3: [250, ROW1], T4: [190, ROW2], T5: [RUN, ROW2], T6: [250, ROW2], T7: [130, ROW2] } }
+  ];
+  var index = 0;
+  var timer = null;
+  var svg = root.querySelector(".sq-svg");
+  var text = root.querySelector(".sq-text");
+  var count = root.querySelector(".sq-count");
+  var play = root.querySelector('[data-sq="play"]');
+  var tasks = {};
+  root.querySelectorAll("[data-task]").forEach(function (el) { tasks[el.getAttribute("data-task")] = el; });
+  var current = {};
+  Object.keys(steps[0].pos).forEach(function (name) { current[name] = steps[0].pos[name]; });
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function translate(point, lift) {
+    return "translate(" + point[0] + "px, " + (point[1] - (lift || 0)) + "px)";
+  }
+
+  function move(el, from, to) {
+    el.getAnimations().forEach(function (animation) { animation.cancel(); });
+    el.style.transform = translate(to);
+    if (reduceMotion || (from[0] === to[0] && from[1] === to[1])) return;
+    var frames = [{ transform: translate(from) }];
+    /* A task that yields leaves the worker and arcs over the queue to its back. */
+    if (from[0] === RUN && to[0] !== RUN && from[1] === to[1]) {
+      frames.push({ transform: translate([(from[0] + to[0]) / 2, from[1]], 44) });
+    }
+    frames.push({ transform: translate(to) });
+    el.animate(frames, { duration: 700, easing: "ease-in-out" });
+  }
+
+  function render() {
+    var step = steps[index];
+    Object.keys(step.pos).forEach(function (name) {
+      var el = tasks[name];
+      var to = step.pos[name];
+      move(el, current[name], to);
+      current[name] = to;
+      el.style.opacity = to === OFFSCREEN ? "0" : "1";
+      el.classList.toggle("is-running", to[0] === RUN);
+      el.classList.toggle("is-new", to === GLOBAL);
+    });
+    text.textContent = step.text;
+    count.textContent = (index + 1) + " / " + steps.length;
+  }
+
+  function go(next) {
+    index = (next + steps.length) % steps.length;
+    render();
+  }
+
+  function stop() {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+    play.textContent = "Play";
+    play.setAttribute("aria-pressed", "false");
+  }
+
+  root.querySelector('[data-sq="prev"]').addEventListener("click", function () { stop(); go(index - 1); });
+  root.querySelector('[data-sq="next"]').addEventListener("click", function () { stop(); go(index + 1); });
+  svg.addEventListener("click", function () { stop(); go(index + 1); });
+  play.addEventListener("click", function () {
+    if (timer) {
+      stop();
+      return;
+    }
+    play.textContent = "Pause";
+    play.setAttribute("aria-pressed", "true");
+    go(index + 1);
+    timer = setInterval(function () { go(index + 1); }, 2800);
+  });
+
+  render();
+})();
+</script>
+</figure>

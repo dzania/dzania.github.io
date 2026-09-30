@@ -1,4 +1,13 @@
-{% assign words_count = include.content | strip_html | number_of_words %}
+{% comment %}
+  Count only prose: code blocks (<pre>) and interactive diagrams (<figure>) are skimmed, not read,
+  so they are removed before counting. The appended space keeps `split` from dropping an empty
+  trailing piece when a block ends the chunk.
+{% endcomment %}
+{% assign pre_chunks = include.content | split: "<pre" %}
+{% capture without_code %}{{ pre_chunks.first }}{% for chunk in pre_chunks offset:1 %}{{ chunk | append: " " | split: "</pre>" | last }}{% endfor %}{% endcapture %}
+{% assign figure_chunks = without_code | split: "<figure" %}
+{% capture prose %}{{ figure_chunks.first }}{% for chunk in figure_chunks offset:1 %}{{ chunk | append: " " | split: "</figure>" | last }}{% endfor %}{% endcapture %}
+{% assign words_count = prose | strip_html | number_of_words %}
 {% assign reading_time = words_count | plus: 179 | divided_by: 180 %}
 {% if reading_time < 1 %}
   {% assign reading_time = 1 %}
